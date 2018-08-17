@@ -37,7 +37,7 @@ class ConverterRegistry(object):
             name (str, iterable): Register key or name tuple.
             _class (BaseConverter): Converter class.
         """
-        if hasattr(name, '__iter__'):
+        if hasattr(name, (list, tuple, set, )):
             for _name in name:
                 cls._registry[_name] = _class
         else:

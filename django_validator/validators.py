@@ -218,7 +218,7 @@ class MinValidator(BaseValidator):
         self.min_value = int(min_value)
 
     def is_valid(self, value, params):
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             self.message = _('The {{key}} must be at least {min} characters.').format(min=self.min_value)
             return len(value) >= self.min_value
         elif isinstance(value, File):
@@ -240,7 +240,7 @@ class MaxValidator(BaseValidator):
         self.max_value = int(max_value)
 
     def is_valid(self, value, params):
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             self.message = _('The {{key}} may not be greater than {max} characters.').format(max=self.max_value)
             return len(value) <= self.max_value
         elif isinstance(value, File):
@@ -263,7 +263,7 @@ class BetweenValidator(BaseValidator):
         self.max_value = int(max_value)
 
     def is_valid(self, value, params):
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             self.message = _('The {{key}} must be between {min} and {max} characters.').format(
                 min=self.min_value,
                 max=self.max_value

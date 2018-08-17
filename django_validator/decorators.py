@@ -134,7 +134,7 @@ class _Param(object):
         value = self.lookup(request, self.name, self.default, kwargs, extra_kwargs)
         try:
             if self.many:
-                if isinstance(value, basestring):
+                if isinstance(value, str):
                     values = value.split(self.separator)
                 elif value is None:
                     values = []
