@@ -37,7 +37,7 @@ class ConverterRegistry(object):
             name (str, iterable): Register key or name tuple.
             _class (BaseConverter): Converter class.
         """
-        if hasattr(name, (list, tuple, set, )):
+        if isinstance(name, (list, tuple, set, )):
             for _name in name:
                 cls._registry[_name] = _class
         else:
@@ -63,11 +63,11 @@ class ConverterMetaClass(type):
         return _class
 
 
-class BaseConverter(object):
+class BaseConverter(metaclass=ConverterMetaClass):
     """
     Abstract super class for all converters.
     """
-    __metaclass__ = ConverterMetaClass
+    # __metaclass__ = ConverterMetaClass
 
     @staticmethod
     def convert(key, string):
