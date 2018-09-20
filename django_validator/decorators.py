@@ -122,6 +122,7 @@ class _Param(object):
                 # Validate after all the params has checked out, because some validators needs all the params.
                 for _param in _decorator.__params__:
                     for validator in _param.validators:
+                        validator._request = request
                         validator(_param.related_name, kwargs, _param.verbose_name)
 
             return func(*args, **kwargs)
