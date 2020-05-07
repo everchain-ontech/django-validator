@@ -99,9 +99,10 @@ class _Param(object):
                 # Call function immediately, maybe raise an error is better.
                 return func(*args, **kwargs)
 
-            extra_kwargs = None
+            extra_kwargs, _view = None, None
             if isinstance(args[0], View):
                 request = args[0].request
+                _view = args[0]
                 # Update the kwargs from Django REST framework's APIView class
                 if isinstance(args[0], APIView):
                     extra_kwargs = args[0].kwargs
@@ -123,6 +124,7 @@ class _Param(object):
                 for _param in _decorator.__params__:
                     for validator in _param.validators:
                         validator._request = request
+                        validator._view = _view
                         validator(_param.related_name, kwargs, _param.verbose_name)
 
             return func(*args, **kwargs)
