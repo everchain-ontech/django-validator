@@ -137,13 +137,15 @@ class _Param(object):
         value = self.lookup(request, self.name, self.default, kwargs, extra_kwargs)
         try:
             if self.many:
-                if isinstance(value, str):
-                    values = value.split(self.separator)
-                elif value is None:
+                if value is None:
                     values = []
-                else:
+                elif isinstance(value, (list, tuple, )):
                     values = value
-                converted_value = [converter.convert(self.name, _value) for _value in values]
+                else:
+                    values = str(value).split(self.separator)
+                converted_value = [
+                    converter.convert(self.name, _value)
+                    for _value in values if _value]
             else:
                 converted_value = converter.convert(self.name, value)
         except ValidationError as e:
